@@ -23,12 +23,12 @@ def get_split_mnist_dataloaders(task_id, batch_size):
     tasks_classes = [(0, 1), (2, 3), (4, 5), (6, 7), (8, 9)]
     classes_for_task = tasks_classes[task_id]
 
-    # --- Filter training dataset for the current task ---
+    # Filter training dataset for the current task
     train_indices = [i for i, label in enumerate(full_train_dataset.targets) if label in classes_for_task]
     train_subset = Subset(full_train_dataset, train_indices)
     train_loader = DataLoader(train_subset, batch_size=batch_size, shuffle=True)
     
-    # --- Filter testing dataset for all tasks seen so far ---
+    # Filter testing dataset for all tasks seen so far
     classes_to_test = []
     for i in range(task_id + 1):
         classes_to_test.extend(tasks_classes[i])

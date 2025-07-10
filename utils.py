@@ -137,11 +137,7 @@ def evaluate_on_seen_tasks(model, benchmark, task_id, device, batch_size):
                 outputs = model(data)
                 _, predicted = torch.max(outputs.data, 1)
                 total += targets.size(0)
-                
-                # --- THIS IS THE FIX ---
-                # Directly compare the predicted class with the true target.
                 correct += (predicted == targets).sum().item()
-                # --- END OF FIX ---
                 
     return (100.0 * correct / total) if total > 0 else 0.0
 
